@@ -65,6 +65,20 @@ public class UsuarioService {
 		
 	}
 	
+	public EnderecoDTO salvarDadosEndereco(String token , EnderecoDTO enderecoDTO) {
+		String email = jwtUtil.extractUsername(token.substring(7));
+		Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow(() -> new  ResourceNotFoundException("Email não localizado!!! "+email));
+		Endereco endereco = usuarioConverter.paraEnderecoSalvar(enderecoDTO, usuario.getId());
+		return usuarioConverter.paraEnderecoDTO(enderecoRepository.save(endereco));
+	}
+	
+	public TelefoneDTO salvarDadosTelefone(String token,TelefoneDTO telefoneDTO ) {
+		String email = jwtUtil.extractUsername(token.substring(7));
+		Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow(() -> new  ResourceNotFoundException("Email não localizado!!! "+email));
+		Telefone telefone = usuarioConverter.paraTelefoneSalvar(telefoneDTO, usuario.getId());
+		return usuarioConverter.paraTelefoneDTO(telefoneRepository.save(telefone));
+	}
+	
 	public UsuarioDTO autalizaDadosUsuario(String token , UsuarioDTO usuarioDTO) {
 		String email = jwtUtil.extractUsername(token.substring(7));
 		usuarioDTO.setSenha(usuarioDTO.getSenha() != null ? passwordEncoder.encode(usuarioDTO.getSenha()): null);
