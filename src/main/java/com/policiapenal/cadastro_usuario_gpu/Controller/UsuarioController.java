@@ -20,7 +20,6 @@ import com.policiapenal.cadastro_usuario_gpu.Business.DTO.TelefoneDTO;
 import com.policiapenal.cadastro_usuario_gpu.Business.DTO.UsuarioDTO;
 import com.policiapenal.cadastro_usuario_gpu.Infrastructure.entity.Usuario;
 import com.policiapenal.cadastro_usuario_gpu.Infrastructure.security.JwtUtil;
-
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -45,7 +44,18 @@ public class UsuarioController {
 		return "Bearer " +jwtUtil.generateToken(authentication.getName()); 
 	}
 	
+	@PostMapping("/endereco")
+	public ResponseEntity<EnderecoDTO> salvarDadosEndereco(@RequestHeader("Authorization") String token,@RequestBody EnderecoDTO enderecoDTO){
+		return ResponseEntity.ok(usuarioService.salvarDadosEndereco(token, enderecoDTO));
 		
+	}
+	
+	@PostMapping("/telefone")
+	public ResponseEntity<TelefoneDTO> salvarDadosTelefone(@RequestHeader("Authorization") String token,@RequestBody TelefoneDTO telefoneDTO){
+		return ResponseEntity.ok(usuarioService.salvarDadosTelefone(token, telefoneDTO));
+		
+	}
+	 		
 	@GetMapping
 	public ResponseEntity<UsuarioDTO> listarUsuarioEmail(@RequestParam("email") String  email ) {
 		return ResponseEntity.ok(usuarioService.listarUsuarioEmail(email));

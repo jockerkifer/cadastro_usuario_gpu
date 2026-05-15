@@ -1,9 +1,7 @@
 package com.policiapenal.cadastro_usuario_gpu.Business.Converter;
 
 import java.util.List;
-
 import org.springframework.stereotype.Component;
-
 import com.policiapenal.cadastro_usuario_gpu.Business.DTO.EnderecoDTO;
 import com.policiapenal.cadastro_usuario_gpu.Business.DTO.TelefoneDTO;
 import com.policiapenal.cadastro_usuario_gpu.Business.DTO.UsuarioDTO;
@@ -50,6 +48,17 @@ public class UsuarioConverter {
 				.build();
 	}
 	
+	public Endereco paraEnderecoSalvar(EnderecoDTO enderecoDTO, Long usuario_id) {
+		return Endereco.builder()
+				.logradouro(enderecoDTO.getLogradouro())
+				.cep(enderecoDTO.getCep())
+				.estado(enderecoDTO.getEstado())
+				.cidade(enderecoDTO.getCidade())
+				.usuario_id(usuario_id)
+				.build();
+		
+	}
+	
 	public Endereco atualizaDadosEndereco(EnderecoDTO enderecoDTO,Endereco endereco) {
 		return Endereco.builder()
 				.id(endereco.getId())
@@ -70,6 +79,15 @@ public class UsuarioConverter {
 				.ddd(telefoneDTO.getDdd())
 				.numero(telefoneDTO.getNumero())
 				.build();
+	}
+	
+	public Telefone paraTelefoneSalvar(TelefoneDTO telefoneDTO, Long usuario_id) {
+		return Telefone.builder()
+				.ddd(telefoneDTO.getDdd())
+				.numero(telefoneDTO.getNumero())
+				.usuario_id(usuario_id)
+				.build();
+		
 	}
 	
 	public Telefone atualizaDadosTelefone(TelefoneDTO telefoneDTO,Telefone telefone) {
