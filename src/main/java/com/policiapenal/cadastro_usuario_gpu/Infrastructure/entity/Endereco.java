@@ -32,5 +32,7 @@ public class Endereco {
 	private String estado;
 	@Column(name="cidade",length = 100)
 	private String cidade;
+	@Column(name = "usuario_id")
+	private Long usuario_id;
 }
 
